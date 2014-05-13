@@ -13,32 +13,89 @@
 # 	      raul	2					                                  #
 #######################################################################
 
-from operator import itemgetter
 import sys
+import re
+import ast
+import math
 
-current_key = ""
-current_val = 0
-key = ""
-count = 1
-avg = 0
+'''funcion que calcula la moda de una entrada de datos'''
+def moda(valores, nombres):
+	print "--------Moda---------"
+	for x in xrange(0,len(valores)):
+		cuenta = valores[x].count(valores[x][0])
+		cuenta2 = 0
+		moda = []
+		moda.append(valores[x][0])
+		for y in range(0,len(valores[x])):
+			cuenta2 = valores[x].count(valores[x][y])
+			if cuenta2 > cuenta:
+				moda = []
+				moda.append(valores[x][y])
+				cuenta = valores[x].count(valores[x][y])
+			elif cuenta2 == cuenta:
+				moda.append(valores[x][y])
+		moda = list(set(moda))
+		print nombres[x], moda
 
-# input viene desde el STDIN
+def promedio(valores, nombres):
+	print "-----Promedios-------"
+	l = 0
+	nombre = []
+	prom = []
+	for lista in valores :
+		lista = [float(i) for i in lista]
+		promedio = sum(lista) / len(lista)
+		print  nombres[l], promedio
+		nombre.append(nombres[l])
+		prom.append(promedio)
+		l = l + 1
+	return prom
+
+
+def desviacionEstandar(valores, nombres):
+	promedios = promedio(valores, nombres)
+	i = 0
+	desviaciones = []
+	for lista in valores:
+		suma = 0
+		for valor in lista:
+			suma = suma + pow(float(valor) - float(promedios[i]), 2)
+		suma = suma / (len(lista) - 1)
+		suma = math.sqrt(suma)
+		desviaciones.append(suma)
+	i += 1
+	print desviaciones
+	return desviaciones
+
+def varianza(valores, nombres):
+	var = desviacionEstandar(valores, nombres)
+	varis = []
+	for valor in var:
+		varis.append(pow(valor,2))
+
+	print varis
+	
+	
+				
+
+
+# input viene desde el STDIN (standard input)
+valores = []
+nombres = []
 for line in sys.stdin:
 	line = line.strip()
-	key, val = line.split(" ", 1)
-	val = float(val)
-	if current_key == key:
-		current_val += val
-		count += 1
-	else:
-		if current_key:
-			avg = current_val / count
-			print '%s\t%s' % (current_key, avg)
-			count = 1
-		current_val = val
-		current_key = key
+	nom, lista = line.split(' ', 1)
+	valores.append(ast.literal_eval(lista))
+	nombres.append(nom)
 
-#imprime la ultima palabra
-if current_key == key:
-	avg = current_val / count
-	print '%s\t%s' % (current_key, avg)
+print valores
+
+
+moda(valores, nombres)
+promedio(valores,nombres)
+desviacionEstandar(valores, nombres)
+varianza(valores, nombres)
+
+
+
+	
