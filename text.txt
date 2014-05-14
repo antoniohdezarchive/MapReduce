@@ -1,0 +1,6 @@
+{
+    "y": "y", 
+    "x": "x", 
+    "numbers": 4, 
+    "strings": "hello"
+}

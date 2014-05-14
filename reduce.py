@@ -17,10 +17,12 @@ import sys
 import re
 import ast
 import math
+import json
 
 '''funcion que calcula la moda de una entrada de datos'''
 def moda(valores, nombres):
-	print "--------Moda---------"
+	
+	modas = []
 	for x in xrange(0,len(valores)):
 		cuenta = valores[x].count(valores[x][0])
 		cuenta2 = 0
@@ -36,9 +38,10 @@ def moda(valores, nombres):
 				moda.append(valores[x][y])
 		moda = list(set(moda))
 		print nombres[x], moda
+		modas.append(moda)
+	return modas
 
 def promedio(valores, nombres):
-	print "-----Promedios-------"
 	l = 0
 	nombre = []
 	prom = []
@@ -74,6 +77,55 @@ def varianza(valores, nombres):
 		varis.append(pow(valor,2))
 
 	print varis
+	return varis
+
+def jsonOutfile(valores, nombres):
+
+	mod = moda(valores, nombres)
+	var = varianza(valores, nombres)
+	des = desviacionEstandar(valores, nombres)
+	prom = promedio(valores,nombres)
+	i = 0
+	res =[]
+	for nom in nombres:
+		nomb = []
+		prome = []
+		modar = []
+		desvi = []
+		varian = []
+		'''
+		nomb.append('nombre": "'+str(nom))
+		prome.append(prom[i])
+		modar.append(mod[i])
+		desvi.append(des[i])
+		varian.append(var[i])
+
+		nomb.append('promedio": "'+str(prome))
+		nomb.append('moda": "'+str(modar))
+		nomb.append('desviacion Estandar": "'+str(desvi))
+		nomb.append('varianza": "'+str(varian))
+		'''
+
+		nomb.append(nom)
+		prome.append(prom[i])
+		modar.append(mod[i])
+		desvi.append(des[i])
+		varian.append(var[i])
+
+		nomb.append(prome)
+		nomb.append(modar)
+		nomb.append(desvi)
+		nomb.append(varian)
+
+		res.append(nomb)
+
+		i = i + 1
+
+	with open("salida.txt", "w") as outfile:
+		for x in res:
+			for i in x:
+				print i
+	   	json.dump({'datos':res}, outfile, indent=4)
 	
 	
 				
@@ -90,12 +142,14 @@ for line in sys.stdin:
 
 print valores
 
-
+print "--------Moda---------"
 moda(valores, nombres)
+print "-----Promedios-------"
 promedio(valores,nombres)
+print "--------desviacion Estandar---------"
 desviacionEstandar(valores, nombres)
+print "--------Varianza---------"
 varianza(valores, nombres)
 
-
-
+jsonOutfile(valores,nombres)
 	

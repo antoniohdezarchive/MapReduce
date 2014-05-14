@@ -1,0 +1,25 @@
+{
+    "datos": [
+        [
+            "nombre\": \"Chris", 
+            "promedio\": \"[23.0]", 
+            "moda\": \"[['22']]", 
+            "desviacion Estandar\": \"[6.6332495807108]", 
+            "varianza\": \"[44.0]"
+        ], 
+        [
+            "nombre\": \"Dominic", 
+            "promedio\": \"[23.0]", 
+            "moda\": \"[['24', '26']]", 
+            "desviacion Estandar\": \"[3.286335345030997]", 
+            "varianza\": \"[10.8]"
+        ], 
+        [
+            "nombre\": \"Matt", 
+            "promedio\": \"[25.0]", 
+            "moda\": \"[['28']]", 
+            "desviacion Estandar\": \"[4.732863826479693]", 
+            "varianza\": \"[22.4]"
+        ]
+    ]
+}
