@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Map Reduce</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<style type="text/css">
+		section{
+			margin: .5em;
+		}
+	</style>
+</head>
+  	<body style="background: #f0f0f0">
+	    <header>
+			<nav class="navbar navbar-default" role="navigation">
+			  	<div class="container">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    	<div class="navbar-header">
+			      		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					        <span class="sr-only">Toggle navigation</span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+			      		</button>
+			      		<a class="navbar-brand" href="#">Map Reduce</a>
+			    	</div>
+			  	</div><!-- /.container-fluid -->
+			</nav>
+		</header>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<section>
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								Seleccionar archivo
+							</div>
+							<div class="panel-body">
+								<form enctype="multipart/form-data" class="form-inline" role="form" action="save_file.py" method="post">
+									<div class="form-group">
+										<label class="sr-only" for="file">Email address</label>
+										<input type="file" class="form-control" name="file" id="file">
+										<button type="submit" class="btn btn-primary">Subir</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="col-md-6">
+					<section>
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								Procesar
+							</div>
+							<div class="panel-body">
+								<form enctype="multipart/form-data" class="form-inline" role="form" action="procesar.py" method="post">
+									<div class="form-group">
+										Formato de salida:
+										<select id="salida" name="salida" class="form-control">>
+											<option value="json">json</option>
+											<option value="csv">csv</option>
+										</select>
+										<button type="submit" class="btn btn-primary">Procesar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="col-md-6">
+					<section>
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								Archivos de entrada
+								<span class="pull-right">
+									<a class="btn btn-default btn-xs" href="borrarEntrada.py">Borrar archivos</a>
+								</span>
+							</div>
+							<ul class="list-group">
+							    <li class="list-group-item">{entrada}</li>
+							</ul>
+						</div>
+					</section>
+				</div>
+				<div class="col-md-6">
+					<section>
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								Archivos de salida
+								<span class="pull-right">
+									<a class="btn btn-default btn-xs" href="borrarSalida.py">Borrar archivos</a>
+								</span>
+							</div>
+							<ul class="list-group">
+							    <li class="list-group-item">{salida}</li>
+							</ul>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	    <script src="js/bootstrap.min.js"></script>
+  	</body>
+</html>
