@@ -91,11 +91,19 @@ def jsonOutfile(valores, nombres):
 	for nom, mod, var, des, prom in zip(nombres, mod, var, des, prom):
 		salida[nom] = {"Moda":mod, "Varianza":var, "desviacionEstandar":des, "Promedio":prom}
 			
-	with open("salida/salida.txt", "w") as outfile:
+	with open("salida/salida.json", "w") as outfile:
 	   	json.dump({'datos':salida}, outfile, indent=4)
-	
-				
 
+def csvWriter(valores, nombres):
+	mod = moda(valores, nombres)
+	var = varianza(valores, nombres)
+	des = desviacionEstandar(valores, nombres)
+	prom = promedio(valores,nombres)
+	salida = ''
+	for nom, mod, var, des, prom in zip(nombres, mod, var, des, prom):
+		salida += str(nom) +',' + str(mod)+ ',' + str(var)+',' + str(des) + ','+ str(prom)+ '\n'	
+	with open("salida/salidaCSV.csv", "w") as outfile:		
+		outfile.write(salida)
 
 # input viene desde el STDIN (standard input)
 valores = []
@@ -114,5 +122,12 @@ desviacionEstandar(valores, nombres)
 
 varianza(valores, nombres)
 
-jsonOutfile(valores,nombres)
+if str(sys.argv[1]) == 'json':
+	jsonOutfile(valores,nombres)
+elif str(sys.argv[1]) == 'csv':
+	csvWriter(valores, nombres)
+
+
+
+
 	
