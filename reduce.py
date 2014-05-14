@@ -37,9 +37,14 @@ def moda(valores, nombres):
 			elif cuenta2 == cuenta:
 				moda.append(valores[x][y])
 		moda = list(set(moda))
-		print nombres[x], moda
 		modas.append(moda)
-	return modas
+	retorno = []
+	for lista in modas:
+		for val in lista:
+			texto = val.replace("['", val)
+			texto = val.replace("']", val)
+			retorno.append(texto)
+	return retorno
 
 def promedio(valores, nombres):
 	l = 0
@@ -48,7 +53,6 @@ def promedio(valores, nombres):
 	for lista in valores :
 		lista = [float(i) for i in lista]
 		promedio = sum(lista) / len(lista)
-		print  nombres[l], promedio
 		nombre.append(nombres[l])
 		prom.append(promedio)
 		l = l + 1
@@ -67,7 +71,6 @@ def desviacionEstandar(valores, nombres):
 		suma = math.sqrt(suma)
 		desviaciones.append(suma)
 	i += 1
-	print desviaciones
 	return desviaciones
 
 def varianza(valores, nombres):
@@ -76,7 +79,6 @@ def varianza(valores, nombres):
 	for valor in var:
 		varis.append(pow(valor,2))
 
-	print varis
 	return varis
 
 def jsonOutfile(valores, nombres):
@@ -85,48 +87,12 @@ def jsonOutfile(valores, nombres):
 	var = varianza(valores, nombres)
 	des = desviacionEstandar(valores, nombres)
 	prom = promedio(valores,nombres)
-	i = 0
-	res =[]
-	for nom in nombres:
-		nomb = []
-		prome = []
-		modar = []
-		desvi = []
-		varian = []
-		'''
-		nomb.append('nombre": "'+str(nom))
-		prome.append(prom[i])
-		modar.append(mod[i])
-		desvi.append(des[i])
-		varian.append(var[i])
-
-		nomb.append('promedio": "'+str(prome))
-		nomb.append('moda": "'+str(modar))
-		nomb.append('desviacion Estandar": "'+str(desvi))
-		nomb.append('varianza": "'+str(varian))
-		'''
-
-		nomb.append(nom)
-		prome.append(prom[i])
-		modar.append(mod[i])
-		desvi.append(des[i])
-		varian.append(var[i])
-
-		nomb.append(prome)
-		nomb.append(modar)
-		nomb.append(desvi)
-		nomb.append(varian)
-
-		res.append(nomb)
-
-		i = i + 1
-
-	with open("salida.txt", "w") as outfile:
-		for x in res:
-			for i in x:
-				print i
-	   	json.dump({'datos':res}, outfile, indent=4)
-	
+	salida = {}
+	for nom, mod, var, des, prom in zip(nombres, mod, var, des, prom):
+		salida[nom] = {"Moda":mod, "Varianza":var, "desviacionEstandar":des, "Promedio":prom}
+			
+	with open("salida/salida.txt", "w") as outfile:
+	   	json.dump({'datos':salida}, outfile, indent=4)
 	
 				
 
@@ -140,15 +106,12 @@ for line in sys.stdin:
 	valores.append(ast.literal_eval(lista))
 	nombres.append(nom)
 
-print valores
-
-print "--------Moda---------"
 moda(valores, nombres)
-print "-----Promedios-------"
+
 promedio(valores,nombres)
-print "--------desviacion Estandar---------"
+
 desviacionEstandar(valores, nombres)
-print "--------Varianza---------"
+
 varianza(valores, nombres)
 
 jsonOutfile(valores,nombres)

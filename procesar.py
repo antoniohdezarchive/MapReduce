@@ -15,19 +15,25 @@ form = cgi.FieldStorage()
 # A nested FieldStorage instance holds the file
 
 try:
-	formato = form["salida"]
+	formato = form["json"]
 except Exception, e:
-	Redirect("index.py?error")
+	pass#Redirect("index.py?error")
+
+try:
+	formato = form["csv"]
+except Exception, e:
+	pass#Redirect("index.py?error")
 
 from subprocess import Popen, PIPE
+for key in form.keys():
+	formato = str(key)
 p1 = Popen(["python", "lector.py"], stdout=PIPE)
 p2 = Popen(["python", "map.py"], stdin=p1.stdout, stdout=PIPE)
 p3 = Popen(["python", "sort.py"], stdin=p2.stdout, stdout=PIPE)
-p4 = Popen(["python", "reduce.py"], stdin=p3.stdout)
+p4 = Popen(["python", "reduce.py", formato], stdin=p3.stdout)
 
 print """\
 Content-Type: text/html\n
 """
-#print p4
-print formato
-#Redirect("index.py")
+
+Redirect("index.py")

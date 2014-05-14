@@ -46,7 +46,7 @@
 							<div class="panel-body">
 								<form enctype="multipart/form-data" class="form-inline" role="form" action="save_file.py" method="post">
 									<div class="form-group">
-										<label class="sr-only" for="file">Email address</label>
+										<label class="sr-only" for="file">Archivo:</label>
 										<input type="file" class="form-control" name="file" id="file">
 										<button type="submit" class="btn btn-primary">Subir</button>
 									</div>
@@ -65,11 +65,8 @@
 								<form enctype="multipart/form-data" class="form-inline" role="form" action="procesar.py" method="post">
 									<div class="form-group">
 										Formato de salida:
-										<select id="salida" name="salida" class="form-control">>
-											<option value="json">json</option>
-											<option value="csv">csv</option>
-										</select>
-										<button type="submit" class="btn btn-primary">Procesar</button>
+										<button type="submit" name="json" value="true" class="btn btn-primary">Json</button>
+										<button type="submit" name="csv" value="true" class="btn btn-primary">CSV</button>
 									</div>
 								</form>
 							</div>
